@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "AddContactList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Add ContactList</li>
+</ol>
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+<h1 class="page-title"><span class="fw-semi-bold">Create - ContactList</span></h1>
+<div class="row" ng-app="ContactListApp" ng-controller="ContactListController">
+    <div class="col-md-8 col-md-offset-1">
+        <section class="widget">
+            <header>
+                <h4>
+                    Contactlist Form
+                </h4>               
+            </header>
+            <div class="widget-body">
+                <form id="validation-form" name="myform" class="form-horizontal form-label-left" role="form" data-ui-jq="parsley"
+                      data-parsley-priority-enabled="false"
+                      novalidate="novalidate" method="post">
+                    <fieldset>
+                        <legend>
+                            By default validation is started only after at least 3 characters have been input.
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">List Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Fname" name="basic" class="form-control" ng-model="ContactListname" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Contacts</label>
+                            @* Directive *@
+                            <div class="col-sm-9" ng-dropdown-multiselect="" extra-settings="dropdownSetting"
+                                 options="Contacts" selected-model="CategoriesSelected" checkboxes="true">
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-danger btn-rounded pull-right" ng-click="myform.$valid && SubmitData()">Submit</button>
+
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="BackList()">Back To list</button>
+                    </div>
+                </form>              
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/CategoryJs.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+<script src="~/Scripts/angularjs-dropdown-multiselect.js"></script>

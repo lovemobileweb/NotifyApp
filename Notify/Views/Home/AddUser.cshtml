@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Add User</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Create - User</span></h1>
+<div class="row" ng-app="UserApp" ng-controller="UserController">
+    <div class="col-md-8 col-md-offset-1">
+        <section class="widget">
+            <header>
+                <h4>
+                    User Registeration Form
+                </h4>
+            </header>
+            <div class="widget-body">
+                <form id="validation-form" name="myform" class="form-horizontal form-label-left" data-ui-jq="parsley"
+                      data-parsley-priority-enabled="false"
+                      novalidate="novalidate">
+                    <fieldset>
+                        <legend>
+                            By default validation is started only after at least 3 characters have been input.
+                        </legend>
+                        @*<div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">User Role</label>
+                            <div class="col-sm-9">
+                                <select id="Lname" name="basic" data-ng-model="Role" data-ui-jq="select2" class="form-control ng-pristine ng-valid ng-touched" tabindex="-1">
+                                    <option value="0">--Select client--</option>                                   
+                                    <option value="2">ClientAdmin</option>
+                                    <option value="3">User</option>
+                                </select>
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">UserName</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="UserName" name="basic" class="form-control" ng-model="UserName" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Full Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="FullName" name="basic" class="form-control" ng-model="Fullname" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="email">
+                                E-mail
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="email" id="Email" name="Email" class="form-control" ng-model="EmailId" maxlength="30"
+                                       data-parsley-trigger="change"
+                                       data-parsley-validation-threshold="1"
+                                       required="required">
+                                <span class="help-block">
+                                    This one is triggered even when 1 character has been input
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" id="Passowrd" name="basic" class="form-control" ng-model="Password" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-danger btn-rounded pull-right" ng-click="myform.$valid && submitform()">Submit</button>
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="BackList()">Back to List</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/Userjs.js"></script>

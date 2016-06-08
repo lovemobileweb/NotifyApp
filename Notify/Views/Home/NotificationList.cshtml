@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "NotificationList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" />*@
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+<script src="~/Scripts/angularjs-dropdown-multiselect.js"></script>
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+      rel="stylesheet" type="text/css" />
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Contact List</li>
+</ol>
+<h1 class="page-title"> <span class="fw-semi-bold">NotificationList </span></h1>
+<section class="widget" ng-app="ContactListApp" data-ng-controller="ContactListController">
+    <header>     
+    </header>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="basic">Contact List</label>
+        <div class="col-sm-9" ng-init="GetInit()">
+            <select id="Lname" name="basic" data-ng-model="con.ListId" data-ng-change="GetselectVal()"
+                    data-ui-jq="select2"
+                    class="form-control"
+                    tabindex="-1">
+                <option value="">--select--</option>
+                <option ng-repeat="con in cont" value="{{con.ListId}}">{{con.ContactListname}}</option>
+
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="widget-body" data-ng-init="getContactList()">
+        <div class="mt">
+            <table data-datatable="ng" data-dt-options="dtOptions" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th class="no-sort hidden-xs">ListName</th>
+                        <th class="hidden-xs">Contacts</th>
+                        <th class="no-sort">Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="contactlist in ContactPropertyList">
+                        <td>{{$index+1}}</td>
+                        <td>{{contactlist.ContactListname}}</td>
+                        <td>{{contactlist.FirstName}}-{{contactlist.LastName}}</td>
+                        <td class="width-150">
+                            <p><a data-ng-click="deleteContactList(contactlist.ListDetailID)" href="javascript:;">Delete</a></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="basic">Contact List</label>
+        <div class="col-sm-9" ng-init="GetInitprsn()">
+            <select id="pname" name="basic" class="form-control" tabindex="-1">
+                <option value="">--select--</option>
+                <option ng-repeat="con1 in cont1" value="{{con1.ContactId}}">{{con1.FirstName}}-{{con1.LastName}}</option>
+
+            </select>
+        </div>
+    </div>
+
+
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/ContactListjs.js"></script>

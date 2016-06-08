@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "AddClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Add Client</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Create - Client</span></h1>
+<div class="row" ng-app="ClientApp" ng-controller="ClientController">
+    <div class="col-md-8 col-md-offset-1">
+        <section class="widget">
+            <header>
+                <h4>
+                    Client Form
+                </h4>                
+            </header>
+            <div class="widget-body">
+                <form id="validation-form" class="form-horizontal form-label-left" method="post"
+                      data-ui-jq="parsley"
+                      data-parsley-priority-enabled="false"
+                      novalidate name="f1" ng-submit="f1.$valid && SaveFile()">
+                    <fieldset>
+                        <legend>
+                            By default validation is started only after at least 3 characters have been input.
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Client User Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Fname" name="basic" class="form-control" ng-model="Clientusername" maxlength="50"
+                                       required="required" onkeypress="return onlyAlphabets(event,this);">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Client Full Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Fname" name="basic" class="form-control" ng-model="clientName" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Client Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" id="ClientEmail" name="basic" class="form-control" ng-model="clientEmail" maxlength="30" data-parsley-trigger="change"
+                                       data-parsley-validation-threshold="1"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Client Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" id="Passowrd" name="basic" class="form-control" ng-model="Password" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Client Logo</label>
+                            <div class="col-sm-9">
+                                <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                                <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.file.$error.required">Image required!</span>
+                                <span class="error">{{FileInvalidMessage}}</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <input type="submit" class="btn btn-danger btn-rounded pull-right" value="Save" />
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="BackList()">Back To list</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/Clientjs.js"></script>
+<script language="Javascript" type="text/javascript">
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+
+
+</script>

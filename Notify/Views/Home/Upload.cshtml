@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@ViewBag.error;
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Add Contact</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Upload  - Resource And Contact File</span></h1>
+<div class="row" ng-app="myApp" ng-controller="ContactController">
+    <div class="col-md-8 col-md-offset-1">
+        <section class="widget">
+            <header style="color:red">
+                @if (TempData["notice"] != null)
+                {
+                    <p>@TempData["notice"]</p>
+                    //Response.Redirect("/Home/Upload");
+                }
+                
+                
+            </header>
+            <div class="widget-body">
+
+                <div class="form-group">
+                    <div>
+                        @Html.ActionLink("Contact File Download ", "downloadFile", "Home")
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        @Html.ActionLink("Resource File Download", "downloadFile1", "Home")
+                    </div>
+                </div>
+
+            </div>
+            <div class="widget-body">
+
+                @using (Html.BeginForm("Upload", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+
+                    <div class="form-group">
+
+                        <label class="col-sm-3 control-label" for="basic" style="font-size: 18px;">Select File</label>
+                        <div class="col-sm-9">
+                            <select id="Lname" name="Locate" class="form-control" tabindex="-1">
+                                <option value="0">---Select File Category---</option>
+                                <option value="1">Contact</option>
+                                <option value="2">Resource</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="col-sm-3 control-label" for="basic" style=" margin-top: 32px; font-size: 18px;">Upload Selected File</label>
+                        <div class="col-sm-9" style=" margin-top: 24px;">
+                            <input type="file" id="dataFile" name="upload" class="form-control" tabindex="-1" />
+
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-danger btn-rounded pull-right" style="margin-top: 38px;margin-right: 1px;">
+                            Submit
+                        </button>
+
+                    </div>
+
+                }
+
+
+            </div>
+
+        </section>
+    </div>
+</div>
+

@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NotifyApp_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientEmail" Type="nvarchar(max)" />
+          <Property Name="ClientLogo" Type="nvarchar(max)" />
+          <Property Name="ClientName" Type="nvarchar(max)" />
+          <Property Name="ClientUserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="AdminId" Type="int" />
+        </EntityType>
+        <EntityType Name="ContactListDetails">
+          <Key>
+            <PropertyRef Name="ListDetailID" />
+          </Key>
+          <Property Name="ListDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactListID" Type="int" />
+          <Property Name="ContactID" Type="int" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="ContactListMaster">
+          <Key>
+            <PropertyRef Name="ListId" />
+          </Key>
+          <Property Name="ListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactListname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnniversaryDate" Type="nvarchar(max)" />
+          <Property Name="CellPhone" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsActive" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PrimaryPhone" Type="nvarchar(max)" />
+          <Property Name="SecondaryPhone" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="Street" Type="nvarchar(max)" />
+          <Property Name="UserMappingId" Type="nvarchar(max)" />
+          <Property Name="ZipCode" Type="nvarchar(max)" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="NotificationLog">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="ContactId" Type="int" Nullable="false" />
+          <Property Name="NotificaiontStatus" Type="int" Nullable="false" />
+          <Property Name="NotificationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateName" Type="nvarchar(max)" />
+          <Property Name="NotificationMessage" Type="nvarchar(max)" />
+          <Property Name="NotificationType" Type="nvarchar(max)" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="Status" Type="nvarchar(max)" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="Resources">
+          <Key>
+            <PropertyRef Name="ResoureId" />
+          </Key>
+          <Property Name="ResoureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountNumber" Type="nvarchar(max)" />
+          <Property Name="CellPhoneNumber" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="PrimaryPhoneNumber" Type="nvarchar(max)" />
+          <Property Name="ResoureDescription" Type="nvarchar(max)" />
+          <Property Name="ResoureName" Type="nvarchar(max)" />
+          <Property Name="SecondaryPhoneNumber" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="Street" Type="nvarchar(max)" />
+          <Property Name="URL" Type="nvarchar(max)" />
+          <Property Name="ZipCode" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_NotificationSchedule">
+          <Key>
+            <PropertyRef Name="NScheduleID" />
+          </Key>
+          <Property Name="NScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationCampaign" Type="nvarchar(max)" />
+          <Property Name="ContactListId" Type="int" />
+          <Property Name="ResourceId" Type="int" />
+          <Property Name="NotificationId" Type="int" />
+          <Property Name="CampaignDate" Type="date" />
+          <Property Name="ChanelMode" Type="nvarchar(max)" />
+          <Property Name="NotificationMessage" Type="nvarchar(max)" />
+          <Property Name="RequestConfirmMsg" Type="nvarchar(max)" />
+          <Property Name="RepeatNotificationAllow" Type="nvarchar(max)" />
+          <Property Name="MsgNumberOfTime" Type="int" />
+          <Property Name="ReapeatDate" Type="date" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserClientRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <Function Name="GetVoiceTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="NotifyApp_dbModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactListDetails" EntityType="Self.ContactListDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactListMaster" EntityType="Self.ContactListMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationLog" EntityType="Self.NotificationLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resources" EntityType="Self.Resources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_NotificationSchedule" EntityType="Self.Tbl_NotificationSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClientRoleMapping" EntityType="Self.UserClientRoleMapping" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NotifyApp_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="AdminId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ContactListDetail">
+          <Key>
+            <PropertyRef Name="ListDetailID" />
+          </Key>
+          <Property Name="ListDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactListID" Type="Int32" />
+          <Property Name="ContactID" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ContactListMaster">
+          <Key>
+            <PropertyRef Name="ListId" />
+          </Key>
+          <Property Name="ListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactListname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnniversaryDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrimaryPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecondaryPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserMappingId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="NotificationLog">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="ContactId" Type="Int32" Nullable="false" />
+          <Property Name="NotificaiontStatus" Type="Int32" Nullable="false" />
+          <Property Name="NotificationId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResoureId" />
+          </Key>
+          <Property Name="ResoureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryPhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResoureDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResoureName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecondaryPhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_NotificationSchedule">
+          <Key>
+            <PropertyRef Name="NScheduleID" />
+          </Key>
+          <Property Name="NScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationCampaign" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactListId" Type="Int32" />
+          <Property Name="ResourceId" Type="Int32" />
+          <Property Name="NotificationId" Type="Int32" />
+          <Property Name="CampaignDate" Type="DateTime" Precision="0" />
+          <Property Name="ChanelMode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RequestConfirmMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RepeatNotificationAllow" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MsgNumberOfTime" Type="Int32" />
+          <Property Name="ReapeatDate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserClientRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="NotifyContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="ContactListDetails" EntityType="Self.ContactListDetail" />
+          <EntitySet Name="ContactListMasters" EntityType="Self.ContactListMaster" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="NotificationLogs" EntityType="Self.NotificationLog" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="Resources" EntityType="Self.Resource" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Tbl_NotificationSchedule" EntityType="Self.Tbl_NotificationSchedule" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserClientRoleMappings" EntityType="Self.UserClientRoleMapping" />
+          <FunctionImport Name="GetVoiceTemplate" ReturnType="Collection(NotifyApp_dbModel.GetVoiceTemplate_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetVoiceTemplate_Result">
+          <Property Type="Int32" Name="NotificationId" Nullable="false" />
+          <Property Type="String" Name="TemplateName" Nullable="true" />
+          <Property Type="String" Name="NotificationMessage" Nullable="true" />
+          <Property Type="String" Name="NotificationType" Nullable="true" />
+          <Property Type="Int32" Name="TypeId" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" />
+          <Property Type="Int32" Name="ClientId" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NotifyApp_dbModelStoreContainer" CdmEntityContainer="NotifyContext">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ClientPassword" ColumnName="ClientPassword" />
+                <ScalarProperty Name="ClientUserName" ColumnName="ClientUserName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="ClientLogo" ColumnName="ClientLogo" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactListDetails">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.ContactListDetail">
+              <MappingFragment StoreEntitySet="ContactListDetails">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ListDetailID" ColumnName="ListDetailID" />
+                <ScalarProperty Name="ContactListID" ColumnName="ContactListID" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactListMasters">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.ContactListMaster">
+              <MappingFragment StoreEntitySet="ContactListMaster">
+                <ScalarProperty Name="ListId" ColumnName="ListId" />
+                <ScalarProperty Name="ContactListname" ColumnName="ContactListname" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.Contact">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="AnniversaryDate" ColumnName="AnniversaryDate" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+                <ScalarProperty Name="SecondaryPhone" ColumnName="SecondaryPhone" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="UserMappingId" ColumnName="UserMappingId" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationLogs">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.NotificationLog">
+              <MappingFragment StoreEntitySet="NotificationLog">
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="NotificaiontStatus" ColumnName="NotificaiontStatus" />
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="NotificationMessage" ColumnName="NotificationMessage" />
+                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resources">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.Resource">
+              <MappingFragment StoreEntitySet="Resources">
+                <ScalarProperty Name="ResoureId" ColumnName="ResoureId" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="CellPhoneNumber" ColumnName="CellPhoneNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PrimaryPhoneNumber" ColumnName="PrimaryPhoneNumber" />
+                <ScalarProperty Name="ResoureDescription" ColumnName="ResoureDescription" />
+                <ScalarProperty Name="ResoureName" ColumnName="ResoureName" />
+                <ScalarProperty Name="SecondaryPhoneNumber" ColumnName="SecondaryPhoneNumber" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_NotificationSchedule">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.Tbl_NotificationSchedule">
+              <MappingFragment StoreEntitySet="Tbl_NotificationSchedule">
+                <ScalarProperty Name="NScheduleID" ColumnName="NScheduleID" />
+                <ScalarProperty Name="NotificationCampaign" ColumnName="NotificationCampaign" />
+                <ScalarProperty Name="ContactListId" ColumnName="ContactListId" />
+                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+                <ScalarProperty Name="CampaignDate" ColumnName="CampaignDate" />
+                <ScalarProperty Name="ChanelMode" ColumnName="ChanelMode" />
+                <ScalarProperty Name="NotificationMessage" ColumnName="NotificationMessage" />
+                <ScalarProperty Name="RequestConfirmMsg" ColumnName="RequestConfirmMsg" />
+                <ScalarProperty Name="RepeatNotificationAllow" ColumnName="RepeatNotificationAllow" />
+                <ScalarProperty Name="MsgNumberOfTime" ColumnName="MsgNumberOfTime" />
+                <ScalarProperty Name="ReapeatDate" ColumnName="ReapeatDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClientRoleMappings">
+            <EntityTypeMapping TypeName="NotifyApp_dbModel.UserClientRoleMapping">
+              <MappingFragment StoreEntitySet="UserClientRoleMapping">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetVoiceTemplate" FunctionName="NotifyApp_dbModel.Store.GetVoiceTemplate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NotifyApp_dbModel.GetVoiceTemplate_Result">
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="NotificationMessage" ColumnName="NotificationMessage" />
+                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

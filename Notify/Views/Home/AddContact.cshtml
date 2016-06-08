@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = "AddContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Add Contact</li>
+</ol>
+
+<h1 class="page-title"><span class="fw-semi-bold">Create - Contact</span></h1>
+<div class="row" ng-app="myApp" ng-controller="ContactController">
+    <div class="col-md-8 col-md-offset-1">
+        <section class="widget">
+            <header>
+                <h4>
+                    Contact Form
+                </h4>
+            </header>
+            <div class="widget-body">
+                <form id="validation-form" name="myform" class="form-horizontal form-label-left" data-ui-jq="parsley"
+                      data-parsley-priority-enabled="false"
+                      novalidate="novalidate">
+                    <fieldset>
+                        <legend>
+                            By default validation is started only after at least 3 characters have been input.
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">First Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Fname" name="basic" class="form-control" ng-model="Firstname" maxlength="50"
+                                       required="required" onkeypress="return onlyAlphabets(event,this);">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Last Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Lname" name="basic" class="form-control" ng-model="Lastname" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="email">
+                                E-mail
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="email" id="Emai" name="Email" class="form-control" ng-model="EmailId" maxlength="30"
+                                       data-parsley-trigger="change"
+                                       data-parsley-validation-threshold="1"
+                                       required="required">
+                                <span class="help-block">
+                                    This one is triggered even when 1 character has been input
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Phone Number
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="mask-int-phone">
+                                Primary Phone Number
+                                <span class="help-block">+375 123 456 789</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="mask-int-phone" name="Phone" class="form-control" ng-model="Primaryno"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="mask-int-phone">
+                                Secondary Phone Number
+                                <span class="help-block">+375 123 456 789</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="mask-int-phone1" name="Secondary" class="form-control" ng-model="Secondaryno">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="mask-int-phone">
+                                Cell Phone Number
+                                <span class="help-block">+375 123 456 789</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="mask-int-phone2" name="Cell" class="form-control" ng-model="Cellno"
+                                       maxlength="20">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Address
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Street</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Street" name="Street" class="form-control" ng-model="Street" maxlength="30">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">City</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="City" name="City" class="form-control" ng-model="City" maxlength="30">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">State</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="State" name="State" class="form-control" ng-model="State" maxlength="30">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Zip Code</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Zip" name="Zip" class="form-control" ng-model="Zip" maxlength="6" data-parsley-type="number">
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            <label class="col-sm-3 control-label" for="basic">Add to existing contactlist</label>
+                            <div class="col-sm-9" ng-init="GetInit()">
+                                <select id="Lname" name="basic" data-ng-model="con.ListId" data-ng-change="GetselectVal()"
+                                        data-ui-jq="select2"
+                                        class="form-control"
+                                        tabindex="-1">
+                                    <option value="0">--select--</option>
+                                    <option ng-repeat="con in cont" value="{{con.ListId}}">{{con.ContactListname}}</option>
+                                </select>
+                            </div>
+                        </div>*@
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-danger btn-rounded pull-right" ng-click="myform.$valid && submitform()">Submit</button>
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="BackList()">Back to List</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/ContactJs.js"></script>
+<script src="~/Content/vendor/jasny-bootstrap/js/inputmask.js"></script>
+<script language="Javascript" type="text/javascript">
+    $("#mask-int-phone").inputmask({ mask: "+999 999 999 999" });
+    $("#mask-int-phone1").inputmask({ mask: "+999 999 999 999" });
+    $("#mask-int-phone2").inputmask({ mask: "+999 999 999 999" });
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+    function CheckIsNumeric(objEvt) {
+        var charCode = (objEvt.which) ? objEvt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            document.getElementById("txtNumber");
+            return false;
+        }
+        else {
+            document.getElementById("txtNumber");
+            return true;
+        }
+    }
+
+    function validateMobNo(mobno) {
+        var mobno2;
+        var flag = false;
+        var mlen = mobno.length;
+        //alert(mobno.substr(3,mobno.length-3));
+        if (mobno.charAt(0) != '+' && mlen == 10) {
+            mobno2 = "+91-" + mobno;
+            alert("1>>your mobile wants to be in " + mobno2);
+            flag = true;
+        }
+        else if (mobno.charAt(0) == '+') {
+            if (mobno.substr(0, 3) == '+91' && mobno.length == 13) {
+                mobno2 = mobno.substr(0, 3) + "-" + mobno.substr(3, mobno.length - 3);
+                alert("2>>your mobile wants to be in " + mobno2);
+                flag = true;
+            }
+        }
+        else if (mobno.indexOf("-") < 0 && mobno.length == 12 && mobno.substr(0, 2) == '91') {
+            mobno2 = mobno.substr(0, 2) + "-" + mobno.substr(3, mobno.length - 2);
+            alert("3>>your mobile wants to be in " + mobno2);
+            flag = true;
+        }
+        else
+            alert("Please correct your mobile No");
+        if (flag == true)
+            document.mobvalidate.mobno.value = mobno2;
+        else
+            document.mobvalidate.mobno.focus()
+        return flag;
+
+    }
+
+</script>
+

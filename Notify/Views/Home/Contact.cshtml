@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Contact List</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Contact</span></h1>
+<section class="widget" ng-app="myApp" ng-controller="ContactController">
+    <form id="validation-form" class="form-horizontal form-label-left" name="myform" method="post"
+          data-ui-jq="parsley"
+          data-parsley-priority-enabled="false"
+          novalidate="novalidate">
+        <header></header>
+        <p><a data-ng-click="showadd()" href="javascript:;" class="btn btn-primary">Add New Contact</a></p>
+        <div class="widget-body" data-ng-init="getContacts()">
+            <div class="mt">
+                <table id="datatable-table" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th class="no-sort hidden-xs">Email</th>
+                            <th class="hidden-xs">Phone Number</th>
+                            <th class="hidden-xs">City</th>
+                            <th class="no-sort">ZipCode</th>
+                            <th class="no-sort">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-show="contact.length!=0" data-ng-repeat="contact in contacts">
+                            <td>{{$index+1}}</td>
+                            <td>{{contact.FirstName}}-{{contact.LastName}}</td>
+                            <td>{{contact.Email}}</td>
+                            <td>{{contact.PrimaryPhone}}</td>
+                            <td>{{contact.City}}</td>
+                            <td>{{contact.ZipCode}}</td>
+                            <td class="width-150">
+                                <p data-ng-hide="contact.editMode"><a data-ng-click="editContact(contact)" href="javascript:;">Edit</a> | <a data-ng-click="deleteContact(contact)" href="javascript:;">Delete</a></p>
+                            </td>
+                        </tr>                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal fade" id="userModel" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add User</h4>
+                        <h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Contact</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">First Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="firstName" name="basic" class="form-control" placeholder="Your First Name" ng-model="contact.FirstName"
+                                           required="required" onkeypress="return onlyAlphabets(event,this);">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Last Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="lastName" name="basic" class="form-control" ng-model="contact.LastName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label"> E-mail</label>
+                                <div class="col-sm-10">
+                                    <input type="email" id="email" name="email" class="form-control" ng-model="contact.Email"
+                                           data-parsley-trigger="change"
+                                           data-parsley-validation-threshold="1"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="number" class="col-sm-2 control-label"> Primary Phone Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="mask-int-phone" name="email" class="form-control" ng-model="contact.PrimaryPhone"
+                                           required="required" onkeypress="return CheckIsNumeric(event);">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="number" class="col-sm-2 control-label"> Secondary Phone Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="mask-int-phone1" name="email" class="form-control" ng-model="contact.SecondaryPhone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="number" class="col-sm-2 control-label"> Cell Phone Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="mask-int-phone2" name="email" class="form-control" ng-model="contact.CellPhone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Street</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="street" name="email" class="form-control" ng-model="contact.Street">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">City</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="city" name="email" class="form-control" ng-model="contact.City">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">State</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="state" name="email" class="form-control" ng-model="contact.State">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Zip Code</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="zipCode" name="email" class="form-control" ng-model="contact.ZipCode"
+                                           data-parsley-trigger="change"
+                                           data-parsley-validation-threshold="1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    @*<span data-ng-hide="editMode">
+                                            <input type="submit" value="Add" ng-disabled="adduserform.$invalid" data-ng-click="add()" class="btn btn-primary" />
+                                        </span>*@
+                                    <span data-ng-show="editMode">
+                                        <input type="submit" value="Update" data-ng-click="myform.$valid && update()" class="btn btn-primary" />
+                                    </span>
+                                    <button type="button" data-ng-click="Cancel()" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                </div>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/ContactJs.js"></script>
+<script src="~/Content/vendor/jasny-bootstrap/js/inputmask.js"></script>
+@*<script src="~/Content/vendor/underscore/underscore-min.js"></script>
+<script src="~/Content/vendor/backbone/backbone.js"></script>
+<script src="~/Content/vendor/backbone.paginator/lib/backbone.paginator.js"></script>
+<script src="~/Content/vendor/backgrid/lib/backgrid.js"></script>
+<script src="~/Content/vendor/backgrid-paginator/backgrid-paginator.js"></script>
+<script src="~/Content/vendor/datatables/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/js/tables-dynamic.js"></script>*@
+<script language="Javascript" type="text/javascript">
+    $("#mask-int-phone").inputmask({ mask: "+999 999 999 999" });
+    $("#mask-int-phone1").inputmask({ mask: "+999 999 999 999" });
+    $("#mask-int-phone2").inputmask({ mask: "+999 999 999 999" });
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+    function CheckIsNumeric(objEvt) {
+        var charCode = (objEvt.which) ? objEvt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            document.getElementById("txtNumber");
+            return false;
+        }
+        else {
+            document.getElementById("txtNumber");
+            return true;
+        }
+
+    }
+</script>

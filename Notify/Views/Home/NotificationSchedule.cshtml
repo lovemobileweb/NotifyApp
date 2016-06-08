@@ -1,0 +1,242 @@
+﻿@{
+    ViewBag.Title = "NotificationSchedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Notification</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Create - Notification Schedule</span></h1>
+<section class="widget" ng-app="NotificationScheduleApp" ng-controller="NotificationScheduleController">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-1">
+
+            <header>
+                <h4>
+                    Notification Form
+                </h4>                
+            </header>
+            <div class="widget-body">
+                <form id="validation-form" class="form-horizontal form-label-left" name="myform" method="post"
+                      data-ui-jq="parsley"
+                      data-parsley-priority-enabled="false"
+                      novalidate="novalidate">
+                    <fieldset>
+                        <legend>
+                            By default validation is started only after at least 3 characters have been input.
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Enter Name of Notification Campaign</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Notificationname" name="basic" class="form-control" ng-model="NotificationCampaign" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="datepicker2i" class="control-label col-sm-3">
+                                Enter Date/Time Campaign should be started
+                            </label>
+                            <div class="col-sm-9">
+                                <div id="datetimepicker2" class="input-group">
+                                    <input id="datepicker2i" data-ui-jq="datetimepicker" type="text" class="form-control datval" ng-model="CampaignDate"  />
+                                    <span class="input-group-btn">
+                                        <a href="#" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-sm-3 control-label" for="country-select">Select with Contact List</label>
+                            <div class="col-sm-9">
+                                <select id="contact-select" data-ng-model="con.ListId" ng-init="GetInit()"
+                                        data-ui-jq="select2"
+                                        class="select2 form-control"
+                                        tabindex="-1">
+                                    <option value="">--select--</option>
+                                    <option ng-repeat="con in cont" value="{{con.ListId}}">{{con.ContactListname}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="country-select">Select Resource List</label>
+                            <div class="col-sm-9">
+                                <select id="contact-select" data-ng-model="Resource.ResoureId" ng-init="GetResources()"
+                                        data-ui-jq=" select2"
+                                        class="select2 form-control"
+                                        tabindex="-1">
+                                    <option value="">--select--</option>
+                                    <option ng-repeat="Resource in Resources" value="{{Resource.ResoureId}}">{{Resource.ResoureName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="email">
+                                Select desired contact channels for campaign
+                            </label>
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox" ng-model="vm.myChkModel" ng-change="vm.myClick(vm.myChkModel)">
+                                    <label for="checkbox1">
+                                        Email
+                                    </label>
+                                    <input id="checkbox2" type="checkbox" ng-model="vm.myChkSmsModel" ng-change="vm.mySmsClick(vm.myChkSmsModel)">
+                                    <label for="checkbox2">
+                                        SMS
+                                    </label>
+                                    <input id="checkbox3" type="checkbox" ng-model="vm.myChkvoiceModel" ng-change="vm.myvoiceClick(vm.myChkvoiceModel)">
+                                    <label for="checkbox3">
+                                        Voice Call
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="IsVisible">
+                            <label class="col-sm-3 control-label" for="country-select">Select Email Notification Template</label>
+                            <div class="col-sm-9">
+                                <select id="contact-select" data-ng-model="Nt.NotificationId" data-ui-jq="select2" class="select2 form-control" tabindex="-1" ng-change="GetNotificationEmailMessage()">
+                                    <option value="">--select--</option>
+                                    <option ng-repeat="Nt in NotifyTemplate" value="{{Nt.NotificationId}}">{{Nt.TemplateName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="IsSMSVisible">
+                            <label class="col-sm-3 control-label" for="country-select">Select SMS Notification Template</label>
+                            <div class="col-sm-9">
+                                <select id="contactsms-select" data-ng-model="Nt.NotificationSmsId" data-ui-jq="select2" class="select2 form-control" tabindex="-1" ng-change="GetNotificationSMSMessage()">
+                                    <option value="">--select--</option>
+                                    <option ng-repeat="Nt in NotifyTemplatesms" value="{{Nt.NotificationId}}">{{Nt.TemplateName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="IsVoiceVisible">
+                            <label class="col-sm-3 control-label" for="country-select">Select Voice Call Notification Template</label>
+                            <div class="col-sm-9">
+                                <select id="contactvoice-select" data-ng-model="Nt.NotificationVoiceId" data-ui-jq="select2" class="select2 form-control" tabindex="-1" ng-change="GetNotificationVoiceMessage()">
+                                    <option value="">--select--</option>
+                                    <option ng-repeat="Nt in NotifyTemplateVoice" value="{{Nt.NotificationId}}">{{Nt.TemplateName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                <label class="control-label col-sm-3" for="basic">
+                                    Request Confirmation of Message Receipt (Generates
+                                    link to the response page where recipient can check
+                                    in and leave updates
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="checkbox2" type="checkbox" ng-model="RequestConfirmMsg">
+                                        <label for="checkbox2">
+                                            Primary
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="basic">
+                                    Repeat Notification option to
+                                    allow notifications to be resetn
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="checkbox2" type="checkbox" ng-model="RepeatNotificationAllow">
+                                        <label for="checkbox2">
+                                            Primary
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="basic">
+                                    Select Number of Times Message
+                                    Repeats
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="number" id="Notificationname" name="basic" class="form-control" ng-model="MsgNumberOfTime"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="datepicker2i" class="control-label col-sm-3">
+                                    Select date/time to begin
+                                    repeats
+                                </label>
+                                <div class="col-sm-9">
+                                    <div id="datetimepicker2" class="input-group">
+                                        <input id="datepicker2i" data-ui-jq="datetimepicker" type="text" class="form-control" ng-model="ReapeatDate" />
+                                        <span class="input-group-btn">
+                                            <a href="#" class="btn btn-success">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="basic">
+                                    Checkbox to cause repeat
+                                    notifications to be sent only to those
+                                    recipients that have not confirmed
+                                    receipt
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="checkbox2" type="checkbox" ng-model="Status">
+                                        <label for="checkbox2">
+                                            Primary
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="basic">
+                                    Create an escalation campaign.
+                                    Allows user the ability to create
+                                    another campaign to run after the
+                                    parent campaign in the event no
+                                    responses are received. Senders can
+                                    use different contact lists, and
+                                    message templates.
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="checkbox2" type="checkbox" ng-model="IsActive">
+                                        <label for="checkbox2">
+                                            Primary
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="form-actions">
+                            <button type="submit" id="submitval" class="btn btn-danger btn-rounded pull-right" ng-click="myform.$valid && submitform()">Submit</button>
+
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/NotificationSchedule.js"></script>
+<script src="~/Content/vendor/moment/moment.js"></script>
+<script src="~/Content/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+
+    $('#datepicker2i').datetimepicker({       
+    });
+    //$(document).ready(function () {
+    //    alert();
+    //    $('#submitval').click(function () {
+    //        alert();
+    //        var datval = $('.datval').val();
+    //        alert(datval);
+    //    })
+    //})
+</script>
+

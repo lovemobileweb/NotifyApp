@@ -1,0 +1,233 @@
+﻿@{
+    ViewBag.Title = "Resources";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Resources List</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Resources-List</span></h1>
+<section class="widget" ng-app="ResourcesApp" data-ng-controller="ResourcesController">
+    <form id="validation-form" class="form-horizontal form-label-left" name="myform" method="post"
+          data-ui-jq="parsley"
+          data-parsley-priority-enabled="false"
+          novalidate="novalidate">
+        <header>          
+        </header>
+        <p><a data-ng-click="showadd()" href="javascript:;" class="btn btn-primary">Add New Resources</a></p>
+        <div class="widget-body" data-ng-init="getResources()">
+            <div class="mt">
+                <table data-datatable="ng" data-dt-options="dtOptions" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Resource Id</th>
+                            <th>Resource Name</th>
+                            <th class="no-sort hidden-xs">Resource Description</th>
+                            <th class="hidden-xs">URL</th>
+                            <th class="hidden-xs">Account Number</th>
+                            <th class="no-sort">First Name</th>
+                            <th class="no-sort">Last Name</th>
+                            <th class="no-sort">Email Address</th>
+                            <th class="no-sort">Primary Phone Number</th>
+                            <th class="no-sort">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="Resource in Resources">
+                            <td>{{$index+1}}</td>
+                            <td>{{Resource.ResoureName}}</td>
+                            <td>{{Resource.ResoureDescription}}</td>
+                            <td>{{Resource.URL}}</td>
+                            <td>{{Resource.AccountNumber}}</td>
+                            <td>{{Resource.FirstName}}</td>
+                            <td>{{Resource.LastName}}</td>
+                            <td>{{Resource.EmailAddress}}</td>
+                            <td>{{Resource.PrimaryPhoneNumber}}</td>
+
+                            <td class="width-150">
+                                <p data-ng-hide="contact.editMode"><a data-ng-click="editResources(Resource)" href="javascript:;">Edit</a> | <a data-ng-click="deleteResources(Resource)" href="javascript:;">Delete</a></p>                              
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="userModel" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add User</h4>
+                        <h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Contact</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" name="adduserform">
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Resoure Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="ResoureName" name="basic" class="form-control" placeholder="Your First Name" ng-model="Resource.ResoureName"
+                                           required="required" onkeypress="return onlyAlphabets(event,this);">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Resoure Description</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="ResoureDescription" name="basic" class="form-control" ng-model="Resource.ResoureDescription"
+                                           >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label"> URL</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="URL" name="url" class="form-control" ng-model="Resource.URL"
+                                           data-parsley-trigger="change"
+                                           data-parsley-validation-threshold="1"
+                                           >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label"> Account Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="AccountNumber" name="basic" class="form-control" ng-model="Resource.AccountNumber"
+                                           required="required" onkeypress="return CheckIsNumeric(event);">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label"> First Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="FirstName" name="email" class="form-control" ng-model="Resource.FirstName"
+                                           required="required" onkeypress="return onlyAlphabets(event,this);">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label"> Last Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="lastName" name="email" class="form-control" ng-model="Resource.LastName"
+                                          >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Email Address</label>
+                                <div class="col-sm-10">
+                                    <input type="email" id="EmailAddress" name="email" class="form-control" ng-model="Resource.EmailAddress"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="mask-int-phone" class="col-sm-2 control-label">Primary Phone Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text"id="mask-int-phone" name="email" class="form-control" ng-model="Resource.PrimaryPhoneNumber"
+                                           required="required" onkeypress="return CheckIsNumeric(event);">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Secondary Phone Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="mask-int-phone1" name="email" class="form-control" ng-model="Resource.SecondaryPhoneNumber"
+                                          >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Cell Phone Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="mask-int-phone2" name="email" class="form-control" ng-model="Resource.CellPhoneNumber"
+                                          >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Street</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="Street" name="email" class="form-control" ng-model="Resource.Street"
+                                           data-parsley-trigger="change"
+                                           data-parsley-validation-threshold="1"
+                                          >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">City</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="City" name="email" class="form-control" ng-model="Resource.City"
+                                           data-parsley-trigger="change"
+                                           data-parsley-validation-threshold="1"
+                                        >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">State</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="State" name="email" class="form-control" ng-model="Resource.State"
+                                           data-parsley-trigger="change"
+                                           data-parsley-validation-threshold="1"
+                                          >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Zip Code</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="ZipCode" name="email" class="form-control" ng-model="Resource.ZipCode"
+                                          >
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span data-ng-hide="editMode">
+                                        <input type="submit" value="Add" ng-disabled="adduserform.$invalid" data-ng-click="add()" class="btn btn-primary" />
+                                    </span>
+                                    <span data-ng-show="editMode">
+                                        <input type="submit" value="Update" data-ng-click="myform.$valid && update()" class="btn btn-primary" />
+                                    </span>
+                                    <button type="button"  data-ng-click="Cancel()"  class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/ResourcesJs.js"></script>
+<script src="~/Content/vendor/jasny-bootstrap/js/inputmask.js"></script>
+
+<script language="Javascript" type="text/javascript">
+    $("#mask-int-phone").inputmask({ mask: "+999 999 999 999" })
+    $("#mask-int-phone1").inputmask({ mask: "+999 999 999 999" })
+    $("#mask-int-phone2").inputmask({ mask: "+999 999 999 999" })
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+    function CheckIsNumeric(objEvt) {
+        var charCode = (objEvt.which) ? objEvt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            document.getElementById("txtNumber");
+            return false;
+        }
+        else {
+            document.getElementById("txtNumber");
+            return true;
+        }
+    }
+</script>

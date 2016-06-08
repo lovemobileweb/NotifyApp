@@ -1,0 +1,211 @@
+﻿@{
+    ViewBag.Title = "AddResources";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Add Resources</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Create - Resource</span></h1>
+<div class="row" ng-app="ResourcesApp" ng-controller="ResourcesController">
+    <div class="col-md-8 col-md-offset-1">
+        <section class="widget">
+            <header>
+                <h4>
+                    Resource Form
+                </h4>               
+            </header>
+            <div class="widget-body">
+                <form id="validation-form" name="myform" class="form-horizontal form-label-left" 
+                      data-ui-jq="parsley"
+                      data-parsley-priority-enabled="false"
+                      novalidate="novalidate">
+                    <fieldset>
+                        <legend>
+                            By default validation is started only after at least 3 characters have been input.
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Resource Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="ResoureName" name="basic" class="form-control" ng-model="ResoureName" maxlength="50"
+                                       required="required" onkeypress="return onlyAlphabets(event,this);">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Resource Description</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="ResoureDescription" name="basic" class="form-control" ng-model="ResoureDescription">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="email">
+                                URL
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="URL" name="email" class="form-control" ng-model="URL">
+                                <span class="help-block">
+                                    This one is triggered even when 1 character has been input
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Personal Information
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="number">
+                                Account Number
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="AccountNumber" name="Accountnumber" class="form-control" ng-model="AccountNumber"
+                                       data-parsley-type="number" maxlength="20"
+                                       required="required" onkeypress="return CheckIsNumeric(event);">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="number">
+                                First Name
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="FirstName" name="Firstname" class="form-control" ng-model="FirstName" maxlength="50"
+                                       required="required" onkeypress="return onlyAlphabets(event,this);">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="number">
+                                Last Name
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="LastName" name="laststname" class="form-control" ng-model="LastName" maxlength="50"
+                                      >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="number">
+                                Email Address
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="email" id="EmailAddress" name="number" class="form-control" ng-model="EmailAddress" maxlength="30"
+                                       data-parsley-trigger="change"
+                                       data-parsley-validation-threshold="1"
+                                       required="required"><span class="help-block">
+                                    This one is triggered even when 1 character has been input
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Phone Number
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="mask-int-phone">
+                                Primary Phone Number
+                                <span class="help-block">+375 123 456 789</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="mask-int-phone" name="Phone" class="form-control" ng-model="PrimaryPhoneNumber"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Secondary Phone Number</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="mask-int-phone1" name="Secondarynumber" class="form-control" ng-model="SecondaryPhoneNumber"  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Cell Phone Number</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="mask-int-phone2" name="Cellnumber" class="form-control" ng-model="CellPhoneNumber" 
+                                     >
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Address
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Street</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Street" name="basic" class="form-control" ng-model="Street" maxlength="50"
+                                     >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">City</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="City" name="basic" class="form-control" ng-model="City" maxlength="30"
+                                     >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">State</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="State" name="basic" class="form-control" ng-model="State" maxlength="30"
+                                   >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Zip Code</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="ZipCode" name="basic" class="form-control" ng-model="ZipCode" maxlength="6" data-parsley-type="number"
+                                    >
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-danger btn-rounded pull-right" ng-click="myform.$valid && submitform()">Submit</button>
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="BackList()">Back To list</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/ResourcesJs.js"></script>
+<script src="~/Content/vendor/jasny-bootstrap/js/inputmask.js"></script>
+<script language="Javascript" type="text/javascript">
+    $("#mask-int-phone").inputmask({ mask: "+999 999 999 999" });
+    $("#mask-int-phone1").inputmask({ mask: "+999 999 999 999" });
+    $("#mask-int-phone2").inputmask({ mask: "+999 999 999 999" });
+  
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+    function CheckIsNumeric(objEvt) {
+        var charCode = (objEvt.which) ? objEvt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            document.getElementById("txtNumber");
+            return false;
+        }
+        else {
+            document.getElementById("txtNumber");
+            return true;
+        }
+    }
+</script>
+
+

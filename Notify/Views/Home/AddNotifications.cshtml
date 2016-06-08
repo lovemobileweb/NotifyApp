@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "AddNotifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li>YOU ARE HERE</li>
+    <li class="active">Add Notification</li>
+</ol>
+<h1 class="page-title"><span class="fw-semi-bold">Create - Notification</span></h1>
+<div class="row" ng-app="NotificationApp" ng-controller="NotificationController">
+    <div class="col-md-8 col-md-offset-1">
+        <section class="widget">
+            <header>
+                <h4>
+                    Notification Form
+                </h4>               
+            </header>
+            <div class="widget-body">
+                <form id="validation-form" class="form-horizontal form-label-left" name="myform" method="post"
+                      data-ui-jq="parsley"
+                      data-parsley-priority-enabled="false"
+                      novalidate="novalidate">
+                    <fieldset>
+                        <legend>
+                            By default validation is started only after at least 3 characters have been input.
+                        </legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="basic">Template Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="Tname" name="basic" class="form-control" ng-model="TemplateName" maxlength="50"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="markdown">
+                                Notification Message
+                            </label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="markdown" data-provide="markdown" rows="6" data-ng-model="NotificationMessage" required="required">
+                                  
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="basic">Notification Type</label>
+                            <div class="col-sm-9">
+                                <select id="NType" name="basic" data-ng-model="NotificationType"
+                                        data-ui-jq="select2"
+                                        data-placeholder="Select Notification Type" required="required"
+                                        class="form-control"
+                                        tabindex="-1">
+                                    <option value="">Select service</option>
+                                    <option value="Email">Email</option>
+                                    <option value="SMS">SMS</option>
+                                    <option value="Voice Call">Voice call</option>
+                                </select>
+                                <span ng-show="myForm.NType.$error.required">Select service</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-danger btn-rounded pull-right" ng-click="myform.$valid && submitform()">Submit</button>
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="BackList()">Back To list</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/AgController/NotificationJs.js"></script>
+<script src="~/Content/vendor/markdown/lib/markdown.js"></script>
+<script src="~/Content/vendor/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+
